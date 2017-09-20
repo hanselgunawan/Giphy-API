@@ -1,0 +1,72 @@
+html 
+{
+    background: url("../images/red-wallpaper.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+h5
+{
+    color:white;
+}
+
+.col-header
+{
+    text-align: center;
+}
+
+.col-header h1
+{
+    font-size: 70pt;
+    color: #ffd700;
+    text-shadow: 3px 3px #c11300;
+}
+
+.superheroBtn
+{
+    margin:20px;
+    color:#ffd700;
+    background-color: #c11300;
+    font-family: "Lucida Grande", "Arial";
+    text-transform: capitalize;
+}
+
+.giphyRating-span
+{
+    text-transform: uppercase;
+}
+
+.col-input-data
+{
+    margin-left: 20px;
+}
+
+.giphyImage-Container
+{
+    width: 300px;
+    height: 200px;
+    margin: 20px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.giphyImage
+{
+    width: 300px;
+    height: 200px;
+}
+
+.giphyRating-p
+{
+    text-transform: capitalize;
+    text-align: left;
+    margin-bottom: -10px;
+    margin-left: 20px;
+    color:white;
+}
+
+#addBtn
+{
+    color: #c11300;
+    margin-top: 10px;
+    background-color: #ffd700 !important;
+}
