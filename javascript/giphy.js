@@ -24,7 +24,7 @@ function pushHero(hero, superheroArr)
     }
 }
 
-function populateGiphy(event)
+function populateGiphy(event, gif_arr_move, gif_arr_still)
 {
     const PUBLIC_KEY = 'dc6zaTOxFJmzC';
     const BASE_URL = '//api.giphy.com/v1/gifs/';
@@ -59,7 +59,6 @@ function populateGiphy(event)
             for(let i in results)
             {
                 let containerDiv = $("<div>");
-                containerDiv.addClass("col-lg-4");
 
                 let ratingParagraph = $("<p>");
                 ratingParagraph.addClass("giphyRating-p");
@@ -69,26 +68,30 @@ function populateGiphy(event)
                 ratingSpan.addClass("giphyRating-span");
                 ratingSpan.text(" "+ results[i].rating +"");
 
-                let giphyContainer = $("<div>");
+                let giphyContainer = $("<img>");
                 giphyContainer.addClass("giphyImage-Container");
-                giphyContainer.attr("style", "background-image:url('"+ results[i].images.downsized.url +"')");
-
-                let giphyStillImg = $("<img>");
-                giphyStillImg.addClass("giphyImage");
-                giphyStillImg.attr("src", results[i].images.original_still.url);
+                giphyContainer.attr("value", i);
+                giphyContainer.attr("data-state", "still");
+                giphyContainer.attr("src", results[i].images.downsized_still.url);
 
                 $(".giphyGallery").append(containerDiv);
+
                 containerDiv.append(ratingParagraph);
                 ratingParagraph.append(ratingSpan);
                 containerDiv.append(giphyContainer);
-                giphyContainer.append(giphyStillImg);
+
+                gif_arr_move.push(results[i].images.downsized.url);
+                gif_arr_still.push(results[i].images.downsized_still.url);
             }
         });
 
 }
 
 $(document).ready(function() {
+    let arrVal = -1;
     let superheroArr = ["spiderman", "superman", "batman", "wonder woman"];
+    let gif_arr_move = [];
+    let gif_arr_still = [];
     populateButton(superheroArr);
 
     $("#addBtn").on("click", function (event) {
@@ -98,14 +101,23 @@ $(document).ready(function() {
     });
 
     $(document).on("click", ".superheroBtn", function (event) {
-        populateGiphy(event);
-    });
-
-    $(document).on("click", ".giphyImage", function (event) {
-        $(event.target).hide();
+        gif_arr_move = [];
+        gif_arr_still = [];
+        populateGiphy(event, gif_arr_move, gif_arr_still);
     });
 
     $(document).on("click", ".giphyImage-Container", function (event) {
-        $(event.target).children(".giphyImage").show();
+        let status = $(event.target).attr("data-state");
+        arrVal = $(event.target).attr("value");
+        if(status==="still")
+        {
+            $(event.target).attr("src", gif_arr_move[arrVal]);
+            $(event.target).attr("data-state", "move");
+        }
+        else
+        {
+            $(event.target).attr("src", gif_arr_still[arrVal]);
+            $(event.target).attr("data-state", "still");
+        }
     });
 })
